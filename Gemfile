@@ -7,6 +7,7 @@ gem 'json'
 
 group :test do
   gem 'minitest-reporters'
+  gem 'webmock'
 end
 
 group :development do
