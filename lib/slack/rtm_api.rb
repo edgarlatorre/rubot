@@ -3,7 +3,6 @@ require 'json'
 
 module Slack
   class RtmApi
-
     # Public: Starts a websocket connection with slack
     #
     # Examples
@@ -17,7 +16,7 @@ module Slack
       body = JSON.parse(
         Net::HTTP.post_form(uri, token: ENV['SLACK_TOKEN']).body
       )
-     
+
       body['url']
     end
   end
