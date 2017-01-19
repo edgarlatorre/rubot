@@ -1,12 +1,7 @@
-require 'http'
 require 'json'
 require 'faye/websocket'
 require 'eventmachine'
-require './slack'
 
-puts "HEEERE"
-
-Slack::Api::RTM.bla
 
 response = JSON.parse(
   HTTP.post(
