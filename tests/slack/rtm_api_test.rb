@@ -1,4 +1,4 @@
-require_relative 'test_helper.rb'
+require_relative '../test_helper.rb'
 require './lib/slack/rtm_api.rb'
 require 'webmock/minitest'
 
