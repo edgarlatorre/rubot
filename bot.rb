@@ -1,16 +1,10 @@
 require 'json'
 require 'faye/websocket'
 require 'eventmachine'
+require './lib/slack/rtm_api'
 
 
-response = JSON.parse(
-  HTTP.post(
-    'https://slack.com/api/rtm.start',
-    params: {token: ENV['SLACK_TOKEN']}
-  )
-)
-
-socket_url = response['url']
+socket_url = Slack::RtmApi.start
 
 EM.run {
   ws = Faye::WebSocket::Client.new(socket_url)
