@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'faye-websocket'
 gem 'eventmachine'
-gem 'rake'
+gem 'faye-websocket'
 gem 'json'
+gem 'rake'
 
 group :test do
   gem 'minitest-reporters'
