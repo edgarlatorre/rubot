@@ -8,7 +8,7 @@ class SlackRtmApiTest < Minitest::Test
     fake_request(:post, resp)
     assert Slack::RtmApi.start == 'wss://slack-websocket-url'
   end
-  
+
   def test_start_returns_nil
     resp = "{\"ok\":false,\"error\":\"invalid_form_data\"}"
     fake_request(:post, resp)

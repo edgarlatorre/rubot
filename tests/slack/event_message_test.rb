@@ -32,7 +32,7 @@ class SlackEventMessageTest < Minitest::Test
 
     assert event.message?
   end
-  
+
   def test_event_is_presence_change_returns_true
     event = get_event
     event.type = 'presence_change'
