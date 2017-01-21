@@ -8,4 +8,5 @@ dependencies:
 
 test:
   post:
+    - rvm docs generate-ri
     - bundle exec rake test
