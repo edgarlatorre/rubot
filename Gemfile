@@ -4,6 +4,7 @@ gem 'eventmachine'
 gem 'faye-websocket'
 gem 'json'
 gem 'rake'
+gem 'rdoc'
 
 group :test do
   gem 'minitest-reporters'
