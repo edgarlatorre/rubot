@@ -2,37 +2,35 @@ require 'faye/websocket'
 require 'eventmachine'
 require './lib/slack/rtm_api'
 require './lib/slack/event_message'
-require './lib/ri.rb'
+require './lib/bot.rb'
 
 socket_url = Slack::RtmApi.start
-bot_id = nil
+bot = nil
 
-EM.run do
-  ws = Faye::WebSocket::Client.new(socket_url)
+unless socket_url.nil?
+  EM.run do
+    ws = Faye::WebSocket::Client.new(socket_url)
 
-  ws.on :open do
-    p 'Opening connection'
-  end
-
-  ws.on :message do |event|
-    message = Slack::EventMessage.new(event)
-    p "Message type: #{message.type} from #{message.user}"
-
-    bot_id = message.user if message.presence_change?
-    msg = RI.find('String#eql?')
-    if message.message?
-      ws.send(
-        {
-          type: 'message',
-          text: "```#{msg}```",
-          channel: message.channel
-        }.to_json
-      )
+    ws.on :open do
+      p 'Opening connection'
     end
-  end
 
-  ws.on :close do |event|
-    p [:close, event.code, event.reason]
-    ws = nil
+    ws.on :message do |event|
+      message = Slack::EventMessage.new(event)
+      p "Message type: #{message.type} from #{message.user} message: #{message.text}"
+
+      bot = Bot.new(message.user) if message.presence_change?
+      if message.message? && message.text
+        if bot.need_to_answer?(message.text)
+          msg = bot.answer(message)
+          ws.send(msg)
+        end
+      end
+    end
+
+    ws.on :close do |event|
+      p [:close, event.code, event.reason]
+      ws = nil
+    end
   end
 end
