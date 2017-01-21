@@ -4,6 +4,7 @@ require './lib/bot.rb'
 class BotTest < Minitest::Test
   def setup
     @bot = Bot.new('UID')
+    @event = EventFake.new('test message', 'UID', 'c', 'message')
   end
 
   def test_set_bot_id
@@ -24,5 +25,25 @@ class BotTest < Minitest::Test
 
   def test_bot_message_with_hash_answer_returns_false
     assert @bot.need_to_answer?('Hi #testing') == false
+  end
+
+  def test_bot_mentioned_returns_doc_in_a_message
+    @event.text = "<@#{@event.user}> String#eql?"
+
+    assert @bot.answer(@event).include?('= String#eql?')
+  end
+
+  def test_bot_mentioned_ask_if_user_needs_help
+    @event.text = "<@#{@event.user}>"
+    message = @bot.answer(@event)
+
+    assert message.include?('how can I help you?')
+  end
+
+  def test_bot_not_mentioned_returns_doc_in_a_message
+    @event.text = 'Integer#zero?'
+    message = @bot.answer(@event)
+
+    assert message.include?(@event.text)
   end
 end
