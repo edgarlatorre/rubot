@@ -6,7 +6,7 @@ end
 
 desc 'Run without an application server'
 task :run do
-  ruby 'bot.rb'
+  ruby 'app.rb'
 end
 
 task default: :test
