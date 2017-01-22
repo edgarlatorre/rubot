@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# This script install all dependencies of the project and 
+# generate the rdoc documentation.
+
+
+# Install bundle
+gem install bundle
+
+#Install project dependencies
+bundle install
+
+
+echo "\n\nAll dependencies were installed"
+echo "Don't forget to export SLACK_TOKEN"

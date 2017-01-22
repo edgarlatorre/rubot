@@ -9,4 +9,9 @@ task :run do
   ruby 'app.rb'
 end
 
+desc 'Install dependencies'
+task :setup do
+  sh 'sh script/setup'
+end
+
 task default: :test
