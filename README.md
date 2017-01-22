@@ -1,5 +1,5 @@
 # Rubot
-Rubot: Simple bot for slack
+Rubot: Simple slack bot to find ruby documentation.
 
 [![CircleCI](https://circleci.com/gh/edgarlatorre/rubot/tree/master.svg?style=svg)](https://circleci.com/gh/edgarlatorre/rubot/tree/master)
 
@@ -20,7 +20,6 @@ $ export SLACK_TOKEN=<TOKEN>
 ```
 
 Run the application.
-
 ```
 $ rake run
 ```
@@ -29,4 +28,21 @@ $ rake run
 Run the tests.
 ```
 $ rake test
+```
+
+##Interacting with rubot on slack
+
+Direct command
+```
+> Array#first
+```
+
+Metion command
+```
+> @<bot_name> Array#first
+```
+
+Advanced command
+```
+@<bot_name> please explain Array#first
 ```
