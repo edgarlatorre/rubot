@@ -7,7 +7,9 @@ require './lib/bot.rb'
 socket_url = Slack::RtmApi.start
 bot = nil
 
-unless socket_url.nil?
+if socket_url.nil?
+  puts 'Was not possible to connect to slack, please check your SLACK_TOKEN'
+else
   EM.run do
     ws = Faye::WebSocket::Client.new(socket_url)
 
