@@ -46,4 +46,18 @@ class BotTest < Minitest::Test
 
     assert message.include?(@event.text)
   end
+
+  def test_bot_asked_to_explain_returns_doc_in_a_message
+    @event.text = "<@#{@event.user}> please explain String"
+    message = @bot.answer(@event)
+
+    assert message.include?('=  String')
+  end
+
+  def test_bot_asked_to_explain_returns_doc_in_a_message
+    @event.text = "Bla"
+    message = @bot.answer(@event)
+
+    assert message.include?("Sorry I couldn't find it.")
+  end
 end

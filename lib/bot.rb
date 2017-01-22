@@ -31,21 +31,30 @@ class Bot
   #
   # Returns if bot need or not to answer
   def answer(message)
-    if message.text.start_with?("<@#{id}>")
+    if message.text.start_with?("<@#{id}> please explain")
+      word = message.text.split("<@#{id}> please explain")[1]
+      msg = format(RI.find(word))
+    elsif message.text.start_with?("<@#{id}>")
       words = message.text.split
-      if words.length > 1
-        msg = RI.find(words[1])
-      else
-        msg = "Hi <@#{message.user}>, how can I help you?"
-      end
+      msg = if words.length > 1
+              format(RI.find(words[1]))
+            else
+              "Hi <@#{message.user}>, how can I help you?"
+            end
     elsif message.text.include?('#')
-      msg = RI.find(message.text)
+      msg = format(RI.find(message.text))
     end
+
+    msg = "Sorry I couldn't find it." if msg.nil?
 
     mount_message(msg, message.channel)
   end
 
   private
+
+  def format(msg)
+    "```#{msg}```"
+  end
 
   def mount_message(message, channel)
     {
