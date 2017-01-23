@@ -11,7 +11,7 @@ $ git clone git@github.com:edgarlatorre/rubot.git
 
 Install the dependencies.
 ```
-$ rake setup
+$ sh script/setup
 ```
 
 Add the slack token to a environment variable.
