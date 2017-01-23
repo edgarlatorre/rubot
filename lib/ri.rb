@@ -1,3 +1,5 @@
+require './lib/string_helper.rb'
+
 # Public: methods related to rdoc
 class RI
   # Public: runs ri command to find a documentation
@@ -18,10 +20,10 @@ class RI
   # Two strings are equal if they have the same length and content.
   def self.find(param)
     output = `ri #{param}`
-    replace_header(param, output)
+    replace_content(output)
   end
 
-  # Public: Replace first line removing escaped charaters
+  # Public: Replace all lines removing escaped charaters
   #
   # Examples
   #
@@ -29,8 +31,13 @@ class RI
   #   # => ''
   #   = String#eql?
   #   ...
-  def self.replace_header(param, content)
-    header = content.split(%(\n\n)).first.to_s
-    header.empty? ? content : content.gsub(header, "= #{param}")
+  def self.replace_content(content)
+    new_content = ''
+
+    content.split(%(\n)).each do |line|
+      new_content += "#{StringHelper.clean_line(line)}\n"
+    end
+
+    new_content
   end
 end
